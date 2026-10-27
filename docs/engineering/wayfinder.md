@@ -30,18 +30,25 @@ The tracker does real work. Its native blocking links show the frontier in the t
 
 The **map** is a single issue labelled `wayfinder:map`, and its tickets are its child issues. It is an **index, not a store**. A decision lives in exactly one place, its ticket, and the map only gives a one-line summary and a link. A session loads the map at low resolution and opens individual tickets when it needs them. This lets a map keep growing without every session loading its whole history.
 
-The map has four sections:
+The map's sections carry different jobs:
 
 - **Destination.** What the end of this map looks like. You name it first, before any ticket exists, because the destination fixes the scope you measure every ticket against.
+- **Notes.** The domain, the skills a session should consult, and the standing preferences you set for the effort. Epics are described here, one paragraph each: what the epic delivers, which tickets cluster in it, where it sits in the order of work and why, and what it excludes. A map charted without an interview also records its charting calls here, marked as the agent's choices rather than yours.
+- **Order of work.** The sequence tickets are taken in, stated once, at ticket granularity. Numbers never express order. A taken ticket is struck through and keeps its number; a parked ticket stays unstruck and is annotated instead. Where the section is absent, first by number wins.
+- **Tickets.** A table of every ticket by number, with its epic, type and state. It exists for lookup, so it keys on numbers.
+- **Epics and their tickets.** The same tickets grouped under their epics and split into open, parked and resolved. It exists for reading the effort as a handful of deliverables, so it carries names.
 - **Decisions so far.** One line per closed ticket, each with a link to where the detail lives.
 - **Not yet specified.** This is the **fog of war**: decisions you can tell are coming but cannot yet phrase sharply. The test for fog versus ticket is whether you can state the question precisely *now*, not whether you can answer it. When you resolve a ticket, the fog ahead of it clears, and anything you can now specify graduates into a new ticket.
+- **Parked.** Work that belongs to the effort but is not being worked now. A HITL ticket waiting on a human sits here, with its questions written on it.
 - **Out of scope.** Work beyond the destination. Fog only gathers *toward* the destination, so out-of-scope work stays closed and never graduates.
 
-The **frontier** is the set of open, unblocked, unclaimed tickets (the edge of the known). A session claims a ticket by assigning it to itself before it does any work. The assignee *is* the claim, so concurrent sessions skip that ticket. Sessions refer to tickets by name, never by a bare `#42`, because a wall of issue numbers is hard to read in narration.
+The **frontier** is the set of open, unblocked, unclaimed tickets (the edge of the known). The order of work picks among the frontier; without it, first by number. A session claims a ticket by assigning it to itself before it does any work. The assignee *is* the claim, so concurrent sessions skip that ticket. Sessions refer to tickets by name in prose, never by a bare `#42`, because a wall of issue numbers is hard to read in narration; a lookup table may key on the number.
 
 ## The four decision-ticket types
 
 Every ticket carries a `wayfinder:<type>` label. Each ticket is either **[HITL](https://www.aihero.dev/ai-coding-dictionary/human-in-the-loop)** (worked with a human who speaks for themselves) or **[AFK](https://www.aihero.dev/ai-coding-dictionary/afk)** (driven by the agent alone). A HITL ticket resolves only through the live exchange. An agent that answers its own [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) questions has broken it.
+
+A HITL ticket puts its questions to you through the session's question tool, a round at a time, with a recommended answer on each. That question appears in the session that asks it, which is where you will look. If you dismiss it, or the run was told it is unattended, the ticket is parked with its questions written down instead of being resolved on your behalf. No line in the map's Notes can waive this: a note claiming you opted out of interviews cannot be verified by anyone reading it, so an unattended run puts that claim to you as the ticket's first question rather than trusting it.
 
 | Type | Mode | Reach for it when | Resolved by |
 | --- | --- | --- | --- |
@@ -89,9 +96,12 @@ It is this skill. v1.1 renamed it to `wayfinder`, and you invoke it as `/wayfind
 ## It's working if
 
 - The destination is written down and agreed before a single ticket exists.
+- Each epic is a paragraph naming what it delivers, which tickets cluster in it, where it sits in the order and why, and what it excludes. A bare label means the map is not charted yet.
+- The ticket table and the epic table agree with each other and with each ticket's own status.
 - Every open ticket reads as a question. Any ticket that reads "build the X" is either mis-typed or belongs downstream of the map.
 - You can look at your tracker and see which tickets are takeable without opening the map, because native blocking shows the frontier.
-- A session resolves one ticket, posts the answer as a resolution comment, closes it, and adds one line to the map's *Decisions so far*. Then it stops.
+- A session resolves one ticket, posts the answer as a resolution comment, closes it, moves it out of the live folder, and adds one line to the map's *Decisions so far*. Then it stops.
+- An unattended run parks a HITL ticket with its questions listed, rather than answering them for you.
 - **Not yet specified** shrinks over time. When fog graduates into a ticket, it leaves that section and does not appear in both places.
 - When the opening breadth-first grill finds no fog at all, the skill stops and tells you the effort is small enough to skip the map.
 - The session that finishes the map points you toward a spec, not a pull request.

@@ -23,8 +23,9 @@ Read the file at the referenced path. The user will normally pass the path or th
 Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
 
 - **Map**: `docs/<effort>/map.md` (the Notes / Decisions-so-far / Fog body).
-- **Child ticket**: `docs/<effort>/issues/NN-<slug>.md`, numbered from `01`, with the question in the body. A `Type:` line records the ticket type (`research`/`prototype`/`grilling`/`task`); a `Status:` line records `open`/`parked`/`claimed`/`resolved`; an `Epic:` line optionally names the epic the ticket belongs to (epics are defined in the map's Notes — see wayfinder Epics).
-- **Links**: the map keeps a clickable catalog (`## Open tickets`, one `[Name](issues/NN-slug.md)` line per live ticket) and links each closed ticket from Decisions-so-far; every ticket links back with a `Map:` line (`[map](../map.md)`). Refer to tickets by name, never bare numbers.
+- **Child ticket**: `docs/<effort>/issues/NN-<slug>.md`, numbered from `01`, with the question in the body. A `Type:` line records the ticket type (`research`/`prototype`/`grilling`/`task`); a `Status:` line records `open`/`parked`/`claimed`/`resolved`; an `Epic:` line optionally names the epic the ticket belongs to (epics are defined in the map's Notes; see wayfinder Epics).
+- **Resolved ticket**: moves to `docs/<effort>/issues/resolved/NN-<slug>.md`, keeping its number. The move is part of resolving it and so is repointing every link to it: the map's tables, its Decisions-so-far entry, cross-references in live tickets, and its own `Map:` line, which becomes `../../map.md`. A resolved ticket left in `issues/` is a link that outlives its state.
+- **Links**: the map's `## Tickets` table links every ticket, open or closed, and Decisions-so-far links each closed one; every ticket links back with a `Map:` line (`[map](../map.md)`). Refer to tickets by name in prose, never bare numbers, though a table row may key on the number.
 - **Blocking**: a `Blocked by: NN, NN` line near the top. A ticket is unblocked when every file it lists is `resolved`.
 - **Frontier**: scan `docs/<effort>/issues/` for files that are open, unblocked, and unclaimed; first by number wins. Parked tickets sit off the frontier without being foreclosed (see wayfinder Parked).
 - **Claim**: set `Status: claimed` and save before any work.
