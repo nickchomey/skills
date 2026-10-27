@@ -1,4 +1,6 @@
-Skills are organized into bucket folders under `skills/`:
+> Fork note: this repo is consumed via the skills.sh CLI and its own marketplace (OpenCode, VS Code, and the other CLI harnesses). Claude-specific routes below are upstream wording kept byte-identical for clean merges.
+>
+> Skills are organized into bucket folders under `skills/`:
 
 - `engineering/`: daily code work
 - `productivity/`: daily non-code workflow tools
@@ -6,9 +8,9 @@ Skills are organized into bucket folders under `skills/`:
 - `in-progress/`: beta: public on purpose, feedback wanted, not shipped in the plugin
 - `deprecated/`: no longer used
 
-Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array (the Claude Code plugin ships exactly the promoted set). Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in either.
+Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array, unless it belongs to the fork's own `our-conventions` group in `.claude-plugin/marketplace.json` (the grouping check reads the marketplace first and `plugin.json` second, so a skill in both lands in `mattpocock-skills`; keep fork-grouped skills out of `plugin.json`). Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in either.
 
-Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` is the repo's own marketplace. Every agent except Claude Code installs from it to get automatic updates, and Claude Code uses `claude-plugins-official`. Run `claude plugin validate . --strict` after touching either manifest. [ADR 0002](./.agents/adr/0002-ship-as-a-claude-code-plugin.md) records why.
+Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` is the repo's own marketplace. Nothing here uses Claude Code, so upstream's `claude plugin validate` step does not apply: installs here go through the skills.sh CLI (OpenCode and the other CLI harnesses) or straight from this repo's marketplace (VS Code). After touching either manifest, run `scripts/check-manifests.sh` instead. It parses both files, confirms every listed skill path ships a valid `SKILL.md`, and enforces the fork grouping (our-conventions members stay out of `plugin.json`). [ADR 0002](./.agents/adr/0002-ship-as-a-claude-code-plugin.md) records why the manifests exist.
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 
@@ -20,7 +22,9 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `
 
 [`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-matt`'s `SKILL.md` and update it so the map stays accurate: a new skill it never mentions, or a stale one it still routes to, is a router that lies.
 
-To (re)link every skill outside `deprecated/` and `misc/` into the local harness skill directories (`~/.claude/skills`, `~/.agents/skills`), run `scripts/link-skills.sh`. Each entry is a symlink into this repo, so a `git pull` keeps installed skills current; re-run the script after adding, removing, or renaming a skill.
+Installs and updates go through the skills CLI, which tracks what it installed and where. To pick up a new skill, run the single-skill `add` for it; to update everything installed globally, run `skills update -g`. The plugin route in [.agents/install-block.md](./.agents/install-block.md) is the managed alternative for the agents that support it.
+
+This checkout is a fork: local patches rebase onto the upstream `mattpocock/skills`. The install route used from this fork is the skills CLI against this checkout, and no Claude Code directories are installed or expected on the machine (nothing writes `~/.claude/`). The `.claude-plugin/` manifests and Claude-specific install wording are upstream carryover; keep them byte-identical with upstream unless a fork patch requires otherwise, and do not add agent-specific install scripts (`scripts/link-skills.sh` was removed for exactly this reason: it duplicated the CLI and fought it).
 
 No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, `CHANGELOG.md`, ADRs, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 

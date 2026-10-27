@@ -23,7 +23,7 @@ The route most work travels. You have an idea and want it built.
    - **`/handoff`** back what you learned, and reference it from the original idea thread.
 3. **Branch: is this a multi-session build?**
    - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. Then work the tickets one of two ways:
-     - **`/implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
+     - **`/implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `docs/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
      - **`/implement-spec`** for the whole spec in one run. It reads the tickets as a **task graph**, runs implementer subagents across the ready **frontier** in parallel, and lands everything on one **integration branch**. Reach for it when you'd rather orchestrate the build than drive each ticket yourself.
    - **No** → **`/implement`** right here, in the same context window.
 
@@ -51,7 +51,9 @@ A starting situation that generates work, then merges onto the main flow.
 
 - **A huge, foggy effort: a greenfield project or a huge feature build, too big for one session** → **`/wayfinder`**, the most cognitively demanding flow here. When the way from here to the destination isn't visible yet, it charts a **shared map** of **decision tickets** on the issue tracker and resolves them one at a time, producing **decisions, not deliverables**, until the fog is pushed back and the way is clear. Where **`/grill-with-docs`** sharpens an idea you can hold in one session, wayfinder is for the idea you can't, and it's slower and denser, so save it for exactly that, never a well-scoped feature.
 
-  When the map clears, **it hands off, it doesn't build**: merge onto the main flow at **`/to-spec`**, which collapses the map's linked decisions into a buildable plan, then `/to-tickets` and `/implement` as usual. Looping the map straight into `/implement` skips that collapse and throws the linked detail away, so go straight to `/implement` only when the effort turned out genuinely small.
+  **Two endings, and the map declares which in its Notes.** By default it produces **decisions, not deliverables**: when the map clears, it **hands off rather than building**, merging onto the main flow at **`/to-spec`** — which collapses the map's linked decisions into a buildable plan — then `/to-tickets` and `/implement` as usual. Alternatively an effort may **carry execution into the map**, and then each ticket is decided *and built* in one context window, with `/to-spec` + `/to-tickets` reached for only *inside* a ticket that turns out multi-session. Reach for that second ending when your conviction is low and a single up-front spec would be stale before it was finished: the map's edge order becomes the plan, and the spec falls out of the closed tickets afterwards, as an output rather than a gate.
+
+  Both endings are fine. What the collapse at **`/to-spec`** buys is the **links** between decisions, so running the **whole** map into a single `/implement` throws them away — which is why going straight to `/implement` is right only when the effort turned out genuinely small. Deciding and building one ticket at a time is a different thing: each ticket's own links travel with it.
 
 ## Codebase health
 
@@ -91,6 +93,7 @@ Off the main flow entirely.
 - **`/wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in plain English, using the `GLOSSARY.md` vocabulary. It works after the fact; `/grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
 - **`/teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace.
 - **`/writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
+- **`/jujutsu`** is the version-control discipline underneath all of it: it makes the agent drive Jujutsu instead of git (revision selection, splits, evidence-preserving merges, bookmarks, recovery, workspace and worktree handling). Model-invoked, so the agent reaches for it the moment a task touches history, branches, or workspaces. For the two repo workflows built on top of it, merging trunk into a branch and rebasing a patch chain onto a new upstream, use [`/merge-trunk-into-branch`](https://aihero.dev/skills-merge-trunk-into-branch) and [`/rebase-onto-upstream`](https://aihero.dev/skills-rebase-onto-upstream) instead.
 
 ## Precondition
 
