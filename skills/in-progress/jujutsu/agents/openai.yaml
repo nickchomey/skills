@@ -1,0 +1,3 @@
+interface:
+  display_name: "Jujutsu"
+  short_description: "Generic jj workflows for revisions and workspaces"
