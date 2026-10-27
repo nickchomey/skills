@@ -26,7 +26,7 @@ The map is an **index**, not a store. It lists the decisions made and points at 
 
 ### The map body
 
-The whole map at low resolution, loaded once per session. Open tickets are **not** listed: they are open child issues, found by query.
+The whole map at low resolution, loaded once per session. Open tickets are listed in an `## Open tickets` catalog: one linked line per live ticket, kept in sync on create/close.
 
 ```markdown
 ## Destination
@@ -43,6 +43,12 @@ The whole map at low resolution, loaded once per session. Open tickets are **not
 
 - [<closed ticket title>](link): <one-line gist of the answer>
 
+## Open tickets
+
+<!-- clickable catalog of every live ticket; keep in sync on create/close. Frontier = open, unblocked, unclaimed. -->
+
+- [<ticket title>](link): <one-line gist of the question> — <type>, <frontier / blocked by ...>
+
 ## Not yet specified
 
 <!-- see "Fog of war": in-scope fog you can't ticket yet; graduates as the frontier advances -->
@@ -54,7 +60,7 @@ The whole map at low resolution, loaded once per session. Open tickets are **not
 
 ### Tickets
 
-Each ticket is a **child issue** of the map; the tracker's issue id is its identity. Its body is the question, sized to one 100K token agent session:
+Each ticket is a **child issue** of the map; the tracker's issue id is its identity. Each ticket links back to its map using the tracker doc's link convention (local markdown: a `Map:` line with a relative link; GitHub/GitLab: a `Part of #<map>` line at the top). Its body is the question, sized to one 100K token agent session:
 
 ```markdown
 ## Question
@@ -111,7 +117,7 @@ User invokes with a loose idea.
 1. **Name the destination.** Call the Skill tool twice, for "grilling" and "domain-modeling", to pin down what this map is finding its way to: the spec, decision, or change. The destination fixes the scope, so it's settled first.
 2. **Map the frontier.** Grill again, **breadth-first** this time: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** (the way to the destination is already clear, the whole journey small enough for one session), you don't need a map. Stop and ask the user how they'd like to proceed.
 3. **Create the map** (label `wayfinder:map`): Destination and Notes filled in, Decisions-so-far empty, the fog sketched into **Not yet specified**.
-4. **Create the tickets you can specify now** as child issues of the map, then wire blocking edges in a **second pass** (issues need ids before they can reference each other). Write cross-references in that pass too, with real ids: a placeholder `#<n>` auto-links to an unrelated issue. Wiring sorts them into the frontier and the blocked; everything you can't yet specify stays in the fog: the **Not yet specified** section.
+4. **Create the tickets you can specify now** as child issues of the map, then wire blocking edges in a **second pass** (issues need ids before they can reference each other). Write cross-references in that pass too, with real ids: a placeholder `#<n>` auto-links to an unrelated issue. List every new ticket in the map's `## Open tickets` catalog and give each ticket its link back to the map. Wiring sorts them into the frontier and the blocked; everything you can't yet specify stays in the fog: the **Not yet specified** section.
 5. **Fire the research subagents.** For each `research` ticket you just created, spin up a subagent that calls the Skill tool with "research" to resolve it in parallel, capturing its findings on a throwaway `research/<name>` branch with a context pointer from the ticket. Push the branch but open no PR: it is never merged.
 6. Stop: charting is one session's work; it hand-resolves nothing.
 
@@ -122,7 +128,7 @@ User invokes with a map (URL or number). A ticket is **optional**: without one, 
 1. Load the **map**: the low-res view, not every ticket body.
 2. Choose the ticket. If the user named one, use it. Otherwise take the first frontier ticket in order. **Claim it**: assign it to yourself before any work.
 3. Resolve it as the type its `wayfinder:<type>` label names (see [Ticket Types](#ticket-types)). Read the label, not just the body: the body never states the type. **Zoom as needed**: fetch the full body of any related or closed ticket on demand; call the Skill tool for whichever skills the `## Notes` block names. If in doubt, call the Skill tool twice, for "grilling" and "domain-modeling".
-4. Record the resolution: post the answer as a **resolution comment**, **close** the issue, and **append a context pointer** to the map's Decisions-so-far.
-5. Add newly-surfaced tickets (create-then-wire); graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals that a ticket (this one or another) sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
+4. Record the resolution: post the answer as a **resolution comment**, **close** the issue, move its line from the map's `## Open tickets` catalog to Decisions-so-far as a **context pointer** (gist + link).
+5. Add newly-surfaced tickets (create-then-wire, each with a catalog line and a link back to the map); graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals that a ticket (this one or another) sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
 
 The user may run unblocked tickets in parallel, so expect other sessions to be editing the tracker concurrently.
