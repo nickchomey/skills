@@ -20,7 +20,9 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `
 
 [`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-matt`'s `SKILL.md` and update it so the map stays accurate: a new skill it never mentions, or a stale one it still routes to, is a router that lies.
 
-Installs and updates go through the skills CLI, which tracks what it installed and where. To pick up a new skill, run the single-skill `add` for it; to update, run `npx skills@latest update`. The plugin route in [.agents/install-block.md](./.agents/install-block.md) is the managed alternative for the agents that support it.
+Installs and updates go through the skills CLI, which tracks what it installed and where. To pick up a new skill, run the single-skill `add` for it; to update everything installed globally, run `skills update -g`. The plugin route in [.agents/install-block.md](./.agents/install-block.md) is the managed alternative for the agents that support it.
+
+This checkout is a fork: local patches rebase onto the upstream `mattpocock/skills`. The install route used from this fork is the skills CLI against this checkout, and no Claude Code directories are installed or expected on the machine (nothing writes `~/.claude/`). The `.claude-plugin/` manifests and Claude-specific install wording are upstream carryover; keep them byte-identical with upstream unless a fork patch requires otherwise, and do not add agent-specific install scripts (`scripts/link-skills.sh` was removed for exactly this reason: it duplicated the CLI and fought it).
 
 No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, `CHANGELOG.md`, ADRs, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 
