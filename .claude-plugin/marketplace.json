@@ -18,6 +18,17 @@
         "code-review",
         "grilling"
       ]
+    },
+    {
+      "name": "our-conventions",
+      "source": "./",
+      "description": "Fork-carried workflow skills: Jujutsu discipline plus trunk-merge and rebase-onto-upstream flows.",
+      "category": "engineering",
+      "skills": [
+        "./skills/engineering/jujutsu",
+        "./skills/engineering/merge-trunk-into-branch",
+        "./skills/engineering/rebase-onto-upstream"
+      ]
     }
   ]
 }
