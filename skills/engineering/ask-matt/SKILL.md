@@ -93,6 +93,7 @@ Off the main flow entirely.
 - **`/wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in plain English, using the `GLOSSARY.md` vocabulary. It works after the fact; `/grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
 - **`/teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace.
 - **`/writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
+- **`/jujutsu`** is the version-control discipline underneath all of it: it makes the agent drive Jujutsu instead of git (revision selection, splits, evidence-preserving merges, bookmarks, recovery, workspace and worktree handling). Model-invoked, so the agent reaches for it the moment a task touches history, branches, or workspaces. For the two repo workflows built on top of it, merging trunk into a branch and rebasing a patch chain onto a new upstream, use [`/merge-trunk-into-branch`](https://aihero.dev/skills-merge-trunk-into-branch) and [`/rebase-onto-upstream`](https://aihero.dev/skills-rebase-onto-upstream) instead.
 
 ## Precondition
 
