@@ -16,7 +16,7 @@ Use `jj` for all version control reads and writes. Never substitute raw git comm
 | `git status` | `jj status` |
 | `git log` | `jj log` (add `--ignore-working-copy` only after a `jj status` snapshot, see below) |
 | `git diff` | `jj diff --git` (path lists: `jj diff --name-only`, never both flags together) |
-| `git add` plus `git commit` | Edit files, then `jj describe -m 'type(scope): description'` (the working copy auto-snapshots) |
+| `git add` plus `git commit` | Edit files; the edits land in `@` on their own at the next snapshot. `jj describe -m 'type(scope): description'` only labels `@`, it seals nothing |
 | `git stash` | `jj new -m 'type(scope): description'` (the old work stays as the parent) |
 | `git checkout -b` | `jj new -r REV -m 'type(scope): description'` |
 | `git fetch`, `git push` | `jj git fetch`, `jj git push -b NAME` |
@@ -25,6 +25,8 @@ Use `jj` for all version control reads and writes. Never substitute raw git comm
 `jj git ...` handles Git transport and `gh` handles GitHub. A repo may define its own push gate (alias or script); follow it when AGENTS.md names one.
 
 ## Select the intended change
+
+There is no staging area and no uncommitted state. `@` is an ordinary commit that tracks the files on disk: every edit amends it automatically at the next snapshot, so `jj status` always diffs `@` against its parent, even when `@` already carries a full description. (jj reuses the words "working copy" to mean `@` itself, not a separate uncommitted layer.) `jj describe` only sets the message. `jj new` is what seals `@` and starts the next change. Never report "uncommitted changes", never ask anyone to commit before acting, and never reach for git porcelain to interpret `jj status` output: read `jj status` and `jj log`, and run `jj split` when the files in `@` belong to more than one logical unit.
 
 1. Run `jj status` to snapshot actual files. Identify the current change, its parents, and whether its work belongs to the user, a prior task, or your active task.
 2. Continue your own active logical change. Start an independent unit with `jj new -m 'type(scope): description'` rather than amending unrelated work. Use a new change on top of user work when that dependence is intentional; do not silently choose another base.
@@ -72,6 +74,8 @@ jj diff --git
 ```
 
 Do not automatically squash the resolution back into the merge, rebase the patches, or abandon the conflicted parent: that rewrites the evidence this workflow deliberately retains. Choosing an entire side with scoped `jj restore` is appropriate only after inspecting that side and deciding those specific changes should be replaced.
+
+Sync by merging by default; rebase only when the result must stay a linear patch chain. For a full proof procedure on a branch sync, call the Skill tool with "merge-trunk-into-branch"; for porting a patch chain onto a new upstream release, call the Skill tool with "rebase-onto-upstream". Neither replaces a repo's own updater or export workflow: where the repo forbids rewriting its vendor line, follow that repo's overlay instead.
 
 ## Bookmarks and publication
 

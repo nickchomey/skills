@@ -239,7 +239,15 @@ Skills I use daily for code work.
 - **[code-review](./skills/engineering/code-review/SKILL.md)**: Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus a Fowler smell baseline?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents so neither pollutes the other.
 - **[pr](./skills/engineering/pr/SKILL.md)**: The shape a pull request body should take: a summary as the smallest visual that makes the change clear, before/after evidence that it works, and a merge-danger call (one-way or two-way door, plus blast radius).
 - **[wizard](./skills/engineering/wizard/SKILL.md)**: Generate an interactive bash wizard that walks a human through steps only they can perform: provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover.
+
+### Our conventions (fork)
+
+Fork-carried skills, installed from this repo's `our-conventions` marketplace group rather than the upstream plugin. Three assume a Jujutsu repository; brainstorm is harness-neutral.
+
 - **[jujutsu](./skills/engineering/jujutsu/SKILL.md)**: Drive Jujutsu instead of git: revision selection, splits, evidence-preserving merges, bookmarks, recovery, and workspace and Git worktree interop.
+- **[merge-trunk-into-branch](./skills/engineering/merge-trunk-into-branch/SKILL.md)**: Merge trunk into a PR branch in a jj repo and prove no change was dropped on either side.
+- **[rebase-onto-upstream](./skills/engineering/rebase-onto-upstream/SKILL.md)**: Port a jj patch chain onto a newer upstream release with an auditable conflict record.
+- **[brainstorm](./skills/productivity/brainstorm/SKILL.md)**: Weigh the ways forward without deciding: collaborative brainstorming for foggy directions.
 
 ### Productivity
 
@@ -257,3 +265,12 @@ General workflow tools, not code-specific.
 
 - **[grilling](./skills/productivity/grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `triage`, `wayfinder` and `improve-codebase-architecture`.
 - **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)**: Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer.
+
+### Our conventions (fork)
+
+Fork-carried skills, installed from this repo's `our-conventions` marketplace group rather than the upstream plugin. Three assume a Jujutsu repository; brainstorm is harness-neutral.
+
+- **[jujutsu](./skills/engineering/jujutsu/SKILL.md)**: Drive Jujutsu instead of git: revision selection, splits, evidence-preserving merges, bookmarks, recovery, and workspace and Git worktree interop.
+- **[merge-trunk-into-branch](./skills/engineering/merge-trunk-into-branch/SKILL.md)**: Merge trunk into a PR branch in a jj repo and prove no change was dropped on either side.
+- **[rebase-onto-upstream](./skills/engineering/rebase-onto-upstream/SKILL.md)**: Port a jj patch chain onto a newer upstream release with an auditable conflict record.
+- **[brainstorm](./skills/productivity/brainstorm/SKILL.md)**: Weigh the ways forward without deciding: collaborative brainstorming for foggy directions.

@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: "Run a collaborative brainstorming session that weighs the ways forward and leaves them open: no decision, no build. Use when the direction is not yet clear and the user does not know which way to go — comparing approaches or mechanisms, or working through something still foggy. A plan or a decision already in hand is grilling, not this."
+description: "Run a collaborative brainstorming session that weighs the ways forward and leaves them open: no decision, no build. Use when the direction is not yet clear and the user does not know which way to go, whether comparing approaches or mechanisms, or working through something still foggy. A plan or a decision already in hand is grilling, not this."
 ---
 
 # Brainstorm

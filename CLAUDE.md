@@ -1,4 +1,6 @@
-Skills are organized into bucket folders under `skills/`:
+> Fork note: this repo is consumed via the skills.sh CLI and its own marketplace (OpenCode, VS Code, and the other CLI harnesses). Claude-specific routes below are upstream wording kept byte-identical for clean merges.
+>
+> Skills are organized into bucket folders under `skills/`:
 
 - `engineering/`: daily code work
 - `productivity/`: daily non-code workflow tools
@@ -8,7 +10,7 @@ Skills are organized into bucket folders under `skills/`:
 
 Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array, unless it belongs to the fork's own `our-conventions` group in `.claude-plugin/marketplace.json` (the grouping check reads the marketplace first and `plugin.json` second, so a skill in both lands in `mattpocock-skills`; keep fork-grouped skills out of `plugin.json`). Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in either.
 
-Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` is the repo's own marketplace. Every agent except Claude Code installs from it to get automatic updates, and Claude Code uses `claude-plugins-official`. Run `claude plugin validate . --strict` after touching either manifest. [ADR 0002](./.agents/adr/0002-ship-as-a-claude-code-plugin.md) records why.
+Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` is the repo's own marketplace. Nothing here uses Claude Code, so upstream's `claude plugin validate` step does not apply: installs here go through the skills.sh CLI (OpenCode and the other CLI harnesses) or straight from this repo's marketplace (VS Code). After touching either manifest, run `scripts/check-manifests.sh` instead. It parses both files, confirms every listed skill path ships a valid `SKILL.md`, and enforces the fork grouping (our-conventions members stay out of `plugin.json`). [ADR 0002](./.agents/adr/0002-ship-as-a-claude-code-plugin.md) records why the manifests exist.
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 

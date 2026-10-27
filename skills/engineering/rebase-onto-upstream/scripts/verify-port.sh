@@ -70,7 +70,7 @@ conflicted_files=$(
 )
 
 if [ -z "$conflicted_files" ]; then
-	echo "No conflicted revisions under $NEW — nothing was merged by hand."
+	echo "No conflicted revisions under $NEW: nothing was merged by hand."
 	echo "If you expected conflicts, check that NEW is the revision you rebased onto."
 else
 	echo "Conflicted revisions, and the revision that resolves each:"
@@ -84,7 +84,7 @@ else
 fi
 
 if [ -n "$outside_revs" ]; then
-	echo "Conflicted revisions OUTSIDE the ported chain — not audited here:"
+	echo "Conflicted revisions OUTSIDE the ported chain (not audited here):"
 	printf '%s\n' "$outside_revs" | sed 's/^/  /'
 	echo
 fi
@@ -94,7 +94,7 @@ total_absent=0
 for path in $conflicted_files; do
 	if [ ! -f "$path" ]; then
 		printf '### %s\n' "$path"
-		printf '    NOT IN THE TREE — a revision deleted or renamed it. Confirm that was intended.\n'
+		printf '    NOT IN THE TREE: a revision deleted or renamed it. Confirm that was intended.\n'
 		total_absent=$((total_absent + 1))
 		continue
 	fi
@@ -143,6 +143,6 @@ echo "Anything else is a dropped upstream change and wants a fix."
 echo
 echo "This audit cannot judge those reasons, and cannot tell whether a deliberate deletion"
 echo "was wise. It finds candidates; you decide. It also cannot see a hunk upstream did NOT"
-echo "touch but a resolution changed anyway — check the resolution diffs themselves."
+echo "touch but a resolution changed anyway. Check the resolution diffs themselves."
 
 [ "$total_absent" -eq 0 ]
