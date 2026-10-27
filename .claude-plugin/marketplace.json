@@ -27,7 +27,8 @@
       "skills": [
         "./skills/engineering/jujutsu",
         "./skills/engineering/merge-trunk-into-branch",
-        "./skills/engineering/rebase-onto-upstream"
+        "./skills/engineering/rebase-onto-upstream",
+        "./skills/productivity/brainstorm"
       ]
     }
   ]
