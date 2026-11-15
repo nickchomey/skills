@@ -90,6 +90,8 @@ Map: [map](../map.md)
 
 **Spec/build tickets.** Bold header lines in this order — `**Spec:**`, `**Blocked by:**`, `**Status:**`:
 
+The three bold header lines must be exactly `**Spec:**`, `**Blocked by:**`, `**Status:**` in order with no other `**Key:**` lines between them; keep cross-references and scope notes below `**Status:**` or under a `##` heading.
+
 # <NN>: <Ticket title>
 
 **Spec:** [<spec name>](../spec.md)
