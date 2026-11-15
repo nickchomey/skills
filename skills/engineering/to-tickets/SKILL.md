@@ -68,13 +68,37 @@ Do NOT close or modify any parent issue.
 
 <local-ticket-template>
 
+Wayfinding map efforts and spec/build efforts use different file grammars (the wayfinder-manager scanner parses them strictly, and the two never mix). Use the wayfinding template for decision tickets on a shared map, and the spec template for tracer-bullet build slices of a spec.
+
+**Wayfinding map tickets.** Plain header lines in this order — `Type:`, `Status:`, `Epic:`, `Blocked by:` — above the question, plus a `Map:` link-back line:
+
+# <NN>-<slug>
+
+Type: <research | prototype | grilling | task>
+
+Status: open
+
+Epic: <epic name, or omit the line>
+
+Blocked by: <numbers of the tickets that gate this one, or None>
+
+Map: [map](../map.md)
+
+## Question
+
+<the decision or investigation this ticket resolves>
+
+**Spec/build tickets.** Bold header lines in this order — `**Spec:**`, `**Blocked by:**`, `**Status:**`:
+
 # <NN>: <Ticket title>
 
-**What to build:** the end-to-end behaviour this ticket makes work, from the user's perspective, not a layer-by-layer implementation list.
+**Spec:** [<spec name>](../spec.md)
 
-**Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".
+**Blocked by:** <numbers of the tickets that gate this one, or None>
 
 **Status:** ready-for-agent
+
+<the end-to-end behaviour this ticket makes work, from the user's perspective, not a layer-by-layer implementation list>
 
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2
