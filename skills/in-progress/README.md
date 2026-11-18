@@ -9,3 +9,4 @@ npx skills@latest add mattpocock/skills --skill=<name>
 ```
 
 - **[chief-of-staff](./chief-of-staff/SKILL.md)**: Pursue a long-running goal in a single session by co-ordinating subagents. User-invoked.
+- **[software-factory](./software-factory/SKILL.md)**: Shared language for designing a software factory: the tasks it runs and the services it plugs into. Call it alongside a grilling session. User-invoked.
