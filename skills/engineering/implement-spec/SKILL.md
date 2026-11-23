@@ -12,7 +12,7 @@ The goal is the entire spec implemented on one **integration target**, with ever
 
 The tickets are not a list of steps. They are a **task graph** with blocking relationships between them. This means there is always a **frontier** of tickets which are ready to be grabbed.
 
-Start every subagent with a fresh context window.
+Start a subagent with a fresh context window for new, distinct work. Continue the same implementer session through its ticket's review fixes, and the same review sessions through re-reviews of the same landing; re-anchor each to the new head first.
 
 Communication to and from subagents should be sparse. Communicate primarily through **context pointers**: to the spec, tickets, research notes, and previous commits. Don't duplicate information already available via pointers.
 
@@ -26,12 +26,12 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 3. Create the integration target. Use the repo's isolation mechanism for implementers: a jj workspace or a git worktree. If the tracker closes work through PRs, or the user asks for one, open a draft PR after the first landing (a target with no commits ahead of main cannot open one), marked as closing the spec and tickets.
 
-4. Use a fresh **implementer subagent** for each ticket, each in its own isolated checkout based on the integration target. Each implementer subagent:
+4. Use a fresh **implementer subagent** for each ticket, each in its own isolated checkout based on the integration target. Fixes for the same ticket stay in that implementer's session; a new implementer is for a new ticket. Each implementer subagent:
    - confirms its checkout is based on the integration target before starting, and resets onto it if not;
    - calls the Skill tool with `implement`, which drives `tdd` and ends with `retro` and the project's report;
    - syncs with the integration head before reporting (jj rebase or git merge, per the repo).
 
-5. When an **implementer subagent** completes, the supervising session reviews the landing with `code-review` and dispositions its process notes. Merge only after the review is clean.
+5. When an **implementer subagent** completes, the supervising session reviews the landing with `code-review` and dispositions its process notes. Re-reviewing the same landing after fixes continues the same Standards and Spec sessions, re-anchored to the new head. Merge only after the review is clean.
 
 6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency.
 

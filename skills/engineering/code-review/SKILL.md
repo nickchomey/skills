@@ -8,7 +8,7 @@ Two-axis review of the change between the current head and a fixed point the use
 - **Standards**: does the code conform to this repo's documented coding standards?
 - **Spec**: does the code faithfully implement the originating issue / spec?
 
-Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start every sub-agent with a fresh context window.
+Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start the two axes with fresh context for a new landing. For a re-review of the same landing after fixes, continue the same two review sessions, re-anchored to the new head; they hold the prior findings and can verify closure. A fresh pair is only for a new landing.
 
 The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
 
@@ -61,9 +61,9 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 - **Middle Man**: a class or function that mostly just delegates onward. → cut it, call the real target direct.
 - **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.
 
-### 4. Spawn both sub-agents in parallel
+### 4. Run both axes in parallel
 
-Issue both sub-agent calls together, in the foreground, and aggregate the reports they return.
+Issue both axis calls together, in the foreground, and aggregate the reports they return. For a new landing, start fresh. For a re-review of the same landing after fixes, send the new base/head and diff to the same two sessions instead of spawning a new pair; they hold the prior findings and can verify closure.
 
 **Standards sub-agent prompt** should include:
 
