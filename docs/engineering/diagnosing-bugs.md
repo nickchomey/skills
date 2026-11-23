@@ -32,7 +32,7 @@ Phase 1 gets the most effort because it is the only hard phase. The skill lists 
 5. A replayed capture: a saved request, payload, or event log, run through the code path in isolation.
 6. A throwaway harness: a minimal subset of the system, one function call.
 7. A property or fuzz loop, for "sometimes wrong output".
-8. A bisection harness you can hand to `git bisect run`.
+8. A bisection harness you can hand to `git bisect run`, or `jj bisect run` in a jj repo.
 9. A differential loop: same input, old version against new.
 10. A [human-in-the-loop](https://www.aihero.dev/ai-coding-dictionary/human-in-the-loop) bash script, last resort. The skill ships `scripts/hitl-loop.template.sh` for this: the agent runs the script, you follow prompts in your terminal, and your answers come back as parseable output.
 
@@ -84,7 +84,7 @@ v1.0.0 renamed it to `/diagnosing-bugs`. The old name no longer exists. Anything
 - It shrinks the repro before it starts guessing, and can tell you why it needs each remaining piece.
 - It shows you a ranked list of 3–5 hypotheses, each with a prediction you could falsify, before it tests any of them.
 - Every debug log it adds carries a tag like `[DEBUG-a4f2]`, and a grep for that tag comes back empty when it declares done.
-- The commit or PR message names which hypothesis was right.
+- The commit, revision description or PR message names which hypothesis was right.
 - When it cannot lock the bug down with a test, it says so instead of writing a shallow one.
 
 ## Where it fits

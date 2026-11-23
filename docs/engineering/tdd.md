@@ -28,7 +28,7 @@ That last row is a real gap. The skill decides *where* the seams go, but nothing
 
 The skill rests on three terms.
 
-**Red-green.** Write the failing test, then only enough code to pass it. Do not write code for the test after next. There is no refactor phase. The skill dropped it in June 2026 because agents almost never performed it, and because review and implementation work better as separate sessions. Refactoring belongs to [code-review](https://aihero.dev/skills-code-review).
+**Red-green.** Write the failing test, then only enough code to pass it. Do not write code for the test after next. There is no refactor phase inside the cycle. Refactoring follows green, before the implementer reports, so the reviewer sees the intended design rather than the first draft. The independent [code-review](https://aihero.dev/skills-code-review) pass is separate.
 
 **Vertical slice.** Write one test at one seam, then the minimal implementation, then repeat. The first cycle is a **tracer bullet** that proves a single path end to end. The opposite is horizontal slicing: all the tests first, then all the code. Tests written in bulk verify *imagined* behaviour. They check the shape of things rather than what a user does, and they commit you to a test structure before you understand the implementation.
 
@@ -48,7 +48,7 @@ Mocks are for system boundaries only: external APIs, time, randomness, sometimes
 
 **Why doesn't it refactor? The description says "red-green-refactor".**
 
-Because the refactor step was removed and the description was not. The removal was deliberate. Agents almost never did the step, and keeping implementation and review in separate sessions works better. Whether the result still counts as TDD by the book matters less than whether the loop produces better code. The mismatch between the trigger phrase and the body is filed as [issue #589](https://github.com/mattpocock/skills/issues/589) and is still open, so "red-green-refactor" continues to work as a phrase that fires the skill. What you get is red-green, with refactoring in [code-review](https://aihero.dev/skills-code-review).
+Because the cycle is deliberately red-green. It does refactor, after the behaviour is green and before the implementer reports, so the reviewer sees the intended design rather than the first draft. The independent [code-review](https://aihero.dev/skills-code-review) pass is separate. The trigger phrase remains because it is how people ask for the loop.
 
 **It asked me to choose a test seam and I had no idea which to pick.**
 
@@ -68,7 +68,7 @@ No. `/tdd` documents the methodology; `/implement` is a simple work→feedback�
 
 **Where did the deep-modules and interface-design guidance go?**
 
-Into [codebase-design](https://aihero.dev/skills-codebase-design) in v1.0, generalised so several skills share one vocabulary. `refactoring.md` left at the same time; refactoring is now [code-review](https://aihero.dev/skills-code-review)'s job, and that skill carries the Fowler smell baseline.
+Into [codebase-design](https://aihero.dev/skills-codebase-design) in v1.0, generalised so several skills share one vocabulary. `refactoring.md` left at the same time; refactoring follows green, before the implementer reports, and [code-review](https://aihero.dev/skills-code-review) carries the Fowler smell baseline.
 
 **Does it know about my other tickets?**
 
@@ -91,4 +91,4 @@ No. Run against one ticket, it can propose work that belongs to a sibling ticket
 grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams up front, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [code-review](https://aihero.dev/skills-code-review) checks afterwards that only the agreed seams were used, and owns the refactoring `tdd` no longer does. Its other neighbour is [codebase-design](https://aihero.dev/skills-codebase-design), the shared source of the seam and deep-module vocabulary that `tdd` uses. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams up front, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [code-review](https://aihero.dev/skills-code-review) checks afterwards that only the agreed seams were used, while the implementer refactors before reporting. Its other neighbour is [codebase-design](https://aihero.dev/skills-codebase-design), the shared source of the seam and deep-module vocabulary that `tdd` uses. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
