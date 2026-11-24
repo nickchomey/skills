@@ -10,6 +10,16 @@ Two-axis review of the change between the current head and a fixed point the use
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start the two axes with fresh context for a new landing. For a re-review of the same landing after fixes, continue the same two review sessions, re-anchored to the new head; they hold the prior findings and can verify closure. A fresh pair is only for a new landing.
 
+## Model and effort
+
+Pass an explicit variant on every review sub-agent call. The tool's default inherits the current session's effort level, which is often `max`; do not rely on it. Use the same variant for both axes and scale it to the review's difficulty:
+
+- `low` — documentation, comments, copy-only, or a single-file mechanical change; a small process/tool ticket with one narrow check.
+- `high` — a standard ticket with tests and several files, but no new cross-cutting mechanism.
+- `max` — a cross-cutting architecture change, a new guard/coverage/release mechanism, a production gate, a seam other tickets depend on, or a landing whose failure would invalidate other work.
+
+When uncertain, use the lower level for a clean, narrow diff and the higher one when the diff changes shared behavior or a guard.
+
 The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
 
 ## Process
@@ -75,7 +85,7 @@ Issue both axis calls together, in the foreground, and aggregate the reports the
 
 - The diff command and commit list.
 - The path or fetched contents of the spec.
-- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Be complete: report every finding you find, one tight paragraph per finding, and stop when the findings are exhausted rather than at a word count."
+- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong; (d) any acceptance line ticked without a proof on this head, including a clause deferred to another gate, which stays unchecked. Quote the spec line for each finding. Be complete: report every finding you find, one tight paragraph per finding, and stop when the findings are exhausted rather than at a word count."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 

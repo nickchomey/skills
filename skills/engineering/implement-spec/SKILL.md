@@ -31,9 +31,9 @@ Communication to and from subagents should be sparse. Communicate primarily thro
    - calls the Skill tool with `implement`, which drives `tdd` and ends with `retro` and the project's report;
    - syncs with the integration head before reporting (jj rebase or git merge, per the repo).
 
-5. When an **implementer subagent** completes, the supervising session reviews the landing with `code-review` and dispositions its process notes. Re-reviewing the same landing after fixes continues the same Standards and Spec sessions, re-anchored to the new head. Merge only after the review is clean.
+5. When an **implementer subagent** completes, the supervising session reviews the landing with `code-review` and dispositions its process notes. Re-reviewing the same landing after fixes continues the same Standards and Spec sessions, re-anchored to the new head. On a re-review, name which gates must re-run and which carry over; a base comparison of a flaky environment is head-independent and does not need repeating. Merge only after the review is clean.
 
-6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency.
+6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency. A merge is not complete until the frontier scan runs: after every merge, re-derive the ready set from the issue files (`mise run frontier` in repos that have it) and dispatch every newly ready ticket before starting the next review round. A batch named in a prompt is a snapshot, not the frontier.
 
 7. If the project reviews per landing, the final `code-review` over the integration target is optional. Run it when the project reviews at the end instead.
 

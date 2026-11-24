@@ -15,6 +15,8 @@ Call the Skill tool with "tdd" where possible, at pre-agreed seams.
 
 Work in one logical unit. When the work is done, leave the working copy in the state the project expects: a jj revision with a full description, a git commit on the current branch, or whatever its instructions name. Do not merge, land or publish the work yourself unless the project says to.
 
+Before an edit, confirm `@` is the revision that should hold it. If `@` is a merge, a docs child, or another revision that must stay pure, run `jj new -m "<intent>"` first: a test or gate run does not move `@`, so an earlier merge is still the working copy when the next edit starts.
+
 End with the report the project's instructions require. When they ask for process notes, call the Skill tool with "retro" on your own session and make its output the process-notes section. Do not compress it.
 
 Independent review is the supervising session's job. Do not call "code-review" on your own work; do check every acceptance criterion against its proving test before reporting.
