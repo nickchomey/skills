@@ -10,6 +10,8 @@ Two-axis review of the change between the current head and a fixed point the use
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start the two axes with fresh context for a new landing. For a re-review of the same landing after fixes, continue the same two review sessions, re-anchored to the new head; they hold the prior findings and can verify closure. A fresh pair is only for a new landing.
 
+These briefs also serve the implementer's internal review loop before handoff, as directed by the `implement` skill. That loop is not the supervisor's landing review: the implementer creates at most one session per axis with fresh context and reuses it through follow-ups on each new head, rather than spawning a pair per round. The supervisor's own use of the skill stays independent and follows the project's review tiering.
+
 ## Model and effort
 
 Pass an explicit variant on every review sub-agent call. The tool's default inherits the current session's effort level, which is often `max`; do not rely on it. Use the same variant for both axes and scale it to the review's difficulty:
